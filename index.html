@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 500px;
+            max-width: 1200px;
             width: 100%;
             background: white;
             border-radius: 12px;
@@ -63,6 +63,20 @@
             gap: 15px;
         }
 
+        /* Diseño para tablets */
+        @media (min-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Diseño para escritorio */
+        @media (min-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         .menu-card {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
@@ -75,6 +89,9 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
+            height: 100%;
+            min-height: 180px;
+            justify-content: center;
         }
 
         .menu-card:hover {
@@ -184,6 +201,8 @@
             color: white;
             text-align: center;
             font-size: 0.9rem;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .footer p {
@@ -255,6 +274,19 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            .logo h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-icon {
+                font-size: 3rem;
+            }
+            
             .mobile-menu-btn {
                 display: flex;
                 align-items: center;
