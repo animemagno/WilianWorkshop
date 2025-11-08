@@ -140,6 +140,45 @@
             box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
         }
 
+        .card-inventario {
+            border-color: #e74c3c;
+        }
+
+        .card-inventario i {
+            color: #e74c3c;
+        }
+
+        .card-inventario:hover {
+            border-color: #e74c3c;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .card-servicios {
+            border-color: #1abc9c;
+        }
+
+        .card-servicios i {
+            color: #1abc9c;
+        }
+
+        .card-servicios:hover {
+            border-color: #1abc9c;
+            box-shadow: 0 5px 15px rgba(26, 188, 156, 0.3);
+        }
+
+        .card-configuracion {
+            border-color: #95a5a6;
+        }
+
+        .card-configuracion i {
+            color: #95a5a6;
+        }
+
+        .card-configuracion:hover {
+            border-color: #95a5a6;
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.3);
+        }
+
         .footer {
             margin-top: 30px;
             color: white;
@@ -150,9 +189,109 @@
         .footer p {
             margin: 5px 0;
         }
+
+        /* Estilos para el menú móvil */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="venta.html">
+            <i class="fas fa-cash-register"></i> Nueva Venta
+        </a>
+        <a href="facturas.html">
+            <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
+        </a>
+        <a href="historial.html">
+            <i class="fas fa-history"></i> Historial de Ventas
+        </a>
+        <a href="inventario.html">
+            <i class="fas fa-boxes"></i> Inventario
+        </a>
+        <a href="servicios.html">
+            <i class="fas fa-tools"></i> Servicios
+        </a>
+        <a href="configuracion.html">
+            <i class="fas fa-cog"></i> Configuración
+        </a>
+    </div>
+
     <div class="container">
         <div class="logo">
             <div class="logo-icon">
@@ -180,6 +319,24 @@
                 <h3>Historial de Ventas</h3>
                 <p>Consultar historial completo de movimientos</p>
             </a>
+
+            <a href="inventario.html" class="menu-card card-inventario">
+                <i class="fas fa-boxes"></i>
+                <h3>Inventario</h3>
+                <p>Gestionar productos y stock disponible</p>
+            </a>
+
+            <a href="servicios.html" class="menu-card card-servicios">
+                <i class="fas fa-tools"></i>
+                <h3>Servicios</h3>
+                <p>Administrar servicios y reparaciones</p>
+            </a>
+
+            <a href="configuracion.html" class="menu-card card-configuracion">
+                <i class="fas fa-cog"></i>
+                <h3>Configuración</h3>
+                <p>Configurar sistema y preferencias</p>
+            </a>
         </div>
     </div>
 
@@ -187,5 +344,30 @@
         <p>Sistema desarrollado para Taller Wilian</p>
         <p>© 2024 - Todos los derechos reservados</p>
     </div>
+
+    <script>
+        // Control del menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
