@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #eef2f5;
+            color: #333;
+            line-height: 1.4;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 12px 0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn.active {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .dashboard-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: 15px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+            color: #2980b9;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .equipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .equipo-card {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .equipo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            border-color: #2980b9;
+        }
+
+        .equipo-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .equipo-nombre {
+            font-size: 0.8rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 5px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .equipo-total {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .ciudad-badge {
+            font-size: 0.7rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .grupos-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .grupos-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .grupo-card {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .grupo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            border-color: #2980b9;
+        }
+
+        .grupo-header {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .grupo-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .grupo-equipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .grupo-equipo-item {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+        }
+
+        .grupo-equipo-item:hover {
+            background: #e8f4fd;
+            border-color: #3498db;
+        }
+
+        .grupo-equipo-number {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+
+        .grupo-equipo-total {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .grupo-total {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #2c3e50;
+            padding: 8px;
+            background: #e8f4fd;
+            border-radius: 4px;
+            border-top: 2px solid #3498db;
+            margin-top: 10px;
+        }
+
+        .grupo-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+
+        .grupo-action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .grupo-action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-detalle-grupo {
+            color: #3498db;
+            border-color: #3498db;
+        }
+
+        .btn-detalle-grupo:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-edit-grupo {
+            color: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .btn-edit-grupo:hover {
+            background: #27ae60;
+            color: white;
+        }
+
+        .btn-delete-grupo {
+            color: #e74c3c;
+            border-color: #e74c3c;
+        }
+
+        .btn-delete-grupo:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #219a52;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 40px 20px;
+        }
+
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Taller Willian</h1>
+            <div class="nav-container">
+                <a href="nueva-venta.html" class="nav-btn">
+                    <i class="fas fa-cash-register"></i> Nueva Venta
+                </a>
+                <a href="facturas-pendientes.html" class="nav-btn active">
+                    <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
+                </a>
+                <a href="historial-ventas.html" class="nav-btn">
+                    <i class="fas fa-history"></i> Historial de Ventas
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-section">
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="facturas">FACTURAS PENDIENTES</button>
+                    <button class="tab-btn" data-tab="grupos">GRUPOS</button>
+                </div>
+                
+                <div class="tab-content active" id="tab-facturas">
+                    <div class="equipos-grid" id="equipos-individuales">
+                    </div>
+                    
+                    <div id="empty-equipos" class="empty-state">
+                        <i class="fas fa-cube"></i>
+                        <div>No hay facturas pendientes</div>
+                        <div style="font-size: 0.8rem; margin-top: 5px; color: #999;">Las ventas pendientes aparecerán aquí</div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-grupos">
+                    <button class="btn btn-success" id="crear-grupo-btn">
+                        <i class="fas fa-plus"></i> CREAR GRUPO
+                    </button>
+                    <div class="grupos-container" id="grupos-container">
+                        <div class="empty-state">
+                            <i class="fas fa-users"></i>
+                            <div>No hay grupos creados</div>
+                            <div style="font-size: 0.8rem; margin-top: 5px; color: #999;">Crea tu primer grupo para organizar los equipos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

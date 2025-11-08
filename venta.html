@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Venta - Taller Wilian</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #eef2f5;
+            color: #333;
+            line-height: 1.4;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 12px 0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-btn.active {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .dashboard-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .venta-header {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .venta-line-1, .venta-line-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .venta-line-1 {
+                grid-template-columns: 1fr 2fr 1fr;
+            }
+            
+            .venta-line-2 {
+                grid-template-columns: 3fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: white;
+            color: #333;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.8rem;
+            display: none;
+        }
+
+        .search-dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.2s;
+        }
+
+        .search-dropdown-item:hover {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .cart-container {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #e9ecef;
+        }
+
+        .cart-header {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .cart-header {
+                display: grid;
+                grid-template-columns: 80px 1fr 100px 100px 80px;
+                gap: 10px;
+                padding: 8px 12px;
+                background: #2c3e50;
+                color: white;
+                border-radius: 4px;
+                font-weight: 600;
+                font-size: 0.8rem;
+                margin-bottom: 8px;
+            }
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        @media (min-width: 768px) {
+            .cart-item {
+                grid-template-columns: 80px 1fr 100px 100px 80px;
+                align-items: center;
+            }
+        }
+
+        .cart-item-mobile-header {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .cart-item-mobile-header {
+                display: none;
+            }
+        }
+
+        .quantity-input, .price-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            line-height: 1.3;
+        }
+
+        .subtotal {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.85rem;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+
+        .cart-total {
+            background: #ecf0f1;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-top: 2px solid #3498db;
+            margin-top: 15px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            padding: 30px;
+            background: white;
+            border-radius: 4px;
+            border: 2px dashed #ddd;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 768px) {
+            .btn {
+                width: auto;
+                margin-bottom: 0;
+            }
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-success {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #219a52;
+        }
+
+        .btn-warning {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background-color: #d35400;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .action-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 28px;
+        }
+
+        .delete-item-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            transition: all 0.2s ease;
+        }
+
+        .delete-item-btn:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        @media (min-width: 768px) {
+            .btn-container {
+                flex-direction: row;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Taller Willian</h1>
+            <div class="nav-container">
+                <a href="nueva-venta.html" class="nav-btn active">
+                    <i class="fas fa-cash-register"></i> Nueva Venta
+                </a>
+                <a href="facturas-pendientes.html" class="nav-btn">
+                    <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
+                </a>
+                <a href="historial-ventas.html" class="nav-btn">
+                    <i class="fas fa-history"></i> Historial de Ventas
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-section">
+            <h2 class="section-title">NUEVA VENTA</h2>
+            
+            <div class="venta-header">
+                <div class="venta-line-1">
+                    <div class="form-group">
+                        <label for="equipo">Equipo</label>
+                        <input type="text" id="equipo" placeholder="Número" maxlength="4">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cliente">Grupo</label>
+                        <input type="text" id="cliente" placeholder="Nombre del grupo">
+                    </div>
+
+                    <div class="btn-container">
+                        <button class="btn btn-success">
+                            CONTADO
+                        </button>
+                    </div>
+                </div>
+
+                <div class="venta-line-2">
+                    <div class="form-group">
+                        <label for="buscar-producto">Buscar Producto</label>
+                        <div class="search-container">
+                            <input type="text" id="buscar-producto" placeholder="Código, descripción">
+                            <div id="search-dropdown" class="search-dropdown"></div>
+                        </div>
+                    </div>
+
+                    <div class="btn-container">
+                        <button class="btn btn-warning">
+                            PENDIENTE
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-container" id="cart-container">
+                <div class="cart-header">
+                    <div>CANT</div>
+                    <div>DESCRIPCIÓN</div>
+                    <div>PRECIO UNIT.</div>
+                    <div>SUBTOTAL</div>
+                    <div>ACCIÓN</div>
+                </div>
+                <div class="cart-items-container" id="cart-items">
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                        <div>No hay productos agregados</div>
+                    </div>
+                </div>
+                <div class="cart-total" id="total-amount">
+                    TOTAL: $0.00
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

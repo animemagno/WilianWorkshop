@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Wilian - Sistema de Ventas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 40px;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .logo p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .menu-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            background: white;
+        }
+
+        .menu-card i {
+            font-size: 2.5rem;
+            color: #3498db;
+        }
+
+        .menu-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .menu-card p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin: 0;
+        }
+
+        .card-venta {
+            border-color: #27ae60;
+        }
+
+        .card-venta i {
+            color: #27ae60;
+        }
+
+        .card-venta:hover {
+            border-color: #27ae60;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+        }
+
+        .card-facturas {
+            border-color: #f39c12;
+        }
+
+        .card-facturas i {
+            color: #f39c12;
+        }
+
+        .card-facturas:hover {
+            border-color: #f39c12;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.3);
+        }
+
+        .card-historial {
+            border-color: #9b59b6;
+        }
+
+        .card-historial i {
+            color: #9b59b6;
+        }
+
+        .card-historial:hover {
+            border-color: #9b59b6;
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h1>Taller Wilian</h1>
+            <p>Sistema de Gestión de Ventas</p>
+        </div>
+
+        <div class="menu-grid">
+            <a href="nueva-venta.html" class="menu-card card-venta">
+                <i class="fas fa-cash-register"></i>
+                <h3>Nueva Venta</h3>
+                <p>Registrar nueva venta o factura pendiente</p>
+            </a>
+
+            <a href="facturas-pendientes.html" class="menu-card card-facturas">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <h3>Facturas Pendientes</h3>
+                <p>Gestionar facturas y grupos pendientes</p>
+            </a>
+
+            <a href="historial-ventas.html" class="menu-card card-historial">
+                <i class="fas fa-history"></i>
+                <h3>Historial de Ventas</h3>
+                <p>Consultar historial completo de movimientos</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Sistema desarrollado para Taller Wilian</p>
+        <p>© 2024 - Todos los derechos reservados</p>
+    </div>
+</body>
+</html>
