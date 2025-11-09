@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturas</title>
+    <title>Facturas - Taller Wilian</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -45,38 +45,6 @@
             margin-bottom: 4px;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-btn.active {
-            background: white;
-            color: #2c3e50;
-        }
-
         .dashboard-section {
             background: white;
             border-radius: 8px;
@@ -84,6 +52,17 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border: 1px solid #e0e0e0;
             margin-bottom: 20px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
         }
 
         .tabs-container {
@@ -130,263 +109,375 @@
             display: block;
         }
 
-        .equipos-grid {
+        /* ===== ESTILOS PARA CUADROS DE FACTURAS ===== */
+        
+        .facturas-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
+            gap: 15px;
             margin-bottom: 20px;
         }
-
-        .equipo-card {
-            background: white;
-            border: 2px solid #3498db;
-            border-radius: 6px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .equipo-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-            border-color: #2980b9;
-        }
-
-        .equipo-number {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .equipo-nombre {
-            font-size: 0.8rem;
-            color: #e74c3c;
-            font-weight: bold;
-            margin-bottom: 5px;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .equipo-total {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        .ciudad-badge {
-            font-size: 0.7rem;
-            color: #e74c3c;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .grupos-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .grupos-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .grupo-card {
+        
+        .factura-card {
             background: white;
             border: 2px solid #3498db;
             border-radius: 8px;
             padding: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: relative;
         }
-
-        .grupo-card:hover {
+        
+        .factura-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             border-color: #2980b9;
         }
-
-        .grupo-header {
-            text-align: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #ddd;
-            position: relative;
+        
+        .factura-card.local {
+            border-color: #27ae60;
         }
-
-        .grupo-name {
-            font-size: 1.1rem;
+        
+        .factura-card.local:hover {
+            border-color: #219a52;
+        }
+        
+        .factura-card.otra-ciudad {
+            border-color: #f39c12;
+        }
+        
+        .factura-card.otra-ciudad:hover {
+            border-color: #d35400;
+        }
+        
+        .equipo-numero {
+            font-size: 2rem;
             font-weight: bold;
             color: #2c3e50;
+            margin-bottom: 5px;
         }
-
-        .grupo-equipos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            gap: 8px;
+        
+        .ciudad-nombre {
+            font-size: 0.9rem;
+            color: #e74c3c;
+            font-weight: bold;
             margin-bottom: 10px;
         }
-
+        
+        .saldo-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        
+        .tipo-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .badge-local {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .badge-otra-ciudad {
+            background: #f39c12;
+            color: white;
+        }
+        
+        /* ===== ESTILOS PARA GRUPOS ===== */
+        
+        .grupos-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .grupos-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .grupo-card {
+            background: white;
+            border: 2px solid #9b59b6;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .grupo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .grupo-header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #9b59b6;
+        }
+        
+        .grupo-nombre {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .grupo-equipos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
         .grupo-equipo-item {
             background: #f8f9fa;
             border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            padding: 8px;
+            border-radius: 6px;
+            padding: 10px;
             text-align: center;
-            cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 0.8rem;
         }
-
+        
         .grupo-equipo-item:hover {
             background: #e8f4fd;
             border-color: #3498db;
         }
-
-        .grupo-equipo-number {
-            font-size: 0.9rem;
+        
+        .grupo-equipo-numero {
+            font-size: 1.1rem;
             font-weight: bold;
             color: #2c3e50;
             margin-bottom: 3px;
         }
-
-        .grupo-equipo-total {
+        
+        .grupo-equipo-ciudad {
             font-size: 0.8rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .grupo-equipo-saldo {
+            font-size: 0.9rem;
             font-weight: bold;
             color: #27ae60;
         }
-
+        
         .grupo-total {
             text-align: center;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #2c3e50;
-            padding: 8px;
+            padding: 12px;
             background: #e8f4fd;
-            border-radius: 4px;
-            border-top: 2px solid #3498db;
-            margin-top: 10px;
+            border-radius: 6px;
+            border-top: 2px solid #9b59b6;
+            margin-top: 15px;
         }
-
-        .grupo-actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-
-        .grupo-action-btn {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-        }
-
-        .grupo-action-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .btn-detalle-grupo {
-            color: #3498db;
-            border-color: #3498db;
-        }
-
-        .btn-detalle-grupo:hover {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-edit-grupo {
-            color: #27ae60;
-            border-color: #27ae60;
-        }
-
-        .btn-edit-grupo:hover {
-            background: #27ae60;
-            color: white;
-        }
-
-        .btn-delete-grupo {
-            color: #e74c3c;
-            border-color: #e74c3c;
-        }
-
-        .btn-delete-grupo:hover {
-            background: #e74c3c;
-            color: white;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
-        }
-
-        .btn-success {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #219a52;
-        }
-
+        
         .empty-state {
             text-align: center;
             color: #7f8c8d;
             padding: 40px 20px;
         }
-
+        
         .empty-state i {
             font-size: 2.5rem;
             margin-bottom: 10px;
             opacity: 0.5;
         }
+
+        /* Menú hamburguesa compacto */
+        .mobile-menu-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive para cuadros */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .facturas-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+            
+            .factura-card {
+                padding: 12px;
+            }
+            
+            .equipo-numero {
+                font-size: 1.5rem;
+            }
+            
+            .saldo-total {
+                font-size: 1rem;
+            }
+            
+            .grupos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .grupo-equipos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-menu-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .facturas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .factura-card {
+                padding: 10px;
+            }
+            
+            .equipo-numero {
+                font-size: 1.3rem;
+            }
+            
+            .ciudad-nombre {
+                font-size: 0.8rem;
+            }
+            
+            .saldo-total {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Menú hamburguesa compacto -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html">
+            <i class="fas fa-home"></i> Inicio
+        </a>
+        <a href="venta.html">
+            <i class="fas fa-cash-register"></i> Nueva Venta
+        </a>
+        <a href="facturas.html" class="active">
+            <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
+        </a>
+        <a href="historial.html">
+            <i class="fas fa-history"></i> Historial de Ventas
+        </a>
+        <a href="inventario.html">
+            <i class="fas fa-boxes"></i> Inventario
+        </a>
+        <a href="servicios.html">
+            <i class="fas fa-tools"></i> Servicios
+        </a>
+        <a href="entregas.html">
+            <i class="fas fa-truck"></i> Entregas
+        </a>
+        <a href="memos-cuentas.html">
+            <i class="fas fa-sticky-note"></i> Memos y Cuentas
+        </a>
+        <a href="configuracion.html">
+            <i class="fas fa-cog"></i> Configuración
+        </a>
+    </div>
+
     <div class="container">
         <header>
             <h1>Taller Willian</h1>
-            <div class="nav-container">
-                <a href="venta.html" class="nav-btn">
-                    <i class="fas fa-cash-register"></i> Nueva Venta
-                </a>
-                <a href="facturas.html" class="nav-btn active">
-                    <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
-                </a>
-                <a href="historial.html" class="nav-btn">
-                    <i class="fas fa-history"></i> Historial de Ventas
-                </a>
-            </div>
         </header>
 
         <div class="dashboard-section">
@@ -397,26 +488,96 @@
                 </div>
                 
                 <div class="tab-content active" id="tab-facturas">
-                    <div class="equipos-grid" id="equipos-individuales">
+                    <h2 class="section-title">FACTURAS PENDIENTES</h2>
+                    
+                    <div class="facturas-grid" id="facturas-container">
+                        <!-- Ejemplo de cuadro local -->
+                        <div class="factura-card local">
+                            <span class="tipo-badge badge-local">LOCAL</span>
+                            <div class="equipo-numero">123</div>
+                            <div class="saldo-total">$150.00</div>
+                        </div>
+                        
+                        <!-- Ejemplo de cuadro otra ciudad -->
+                        <div class="factura-card otra-ciudad">
+                            <span class="tipo-badge badge-otra-ciudad">CIUDAD</span>
+                            <div class="equipo-numero">456</div>
+                            <div class="ciudad-nombre">Chinandega</div>
+                            <div class="saldo-total">$275.50</div>
+                        </div>
+                        
+                        <!-- Ejemplo de cuadro local -->
+                        <div class="factura-card local">
+                            <span class="tipo-badge badge-local">LOCAL</span>
+                            <div class="equipo-numero">789</div>
+                            <div class="saldo-total">$89.00</div>
+                        </div>
+                        
+                        <!-- Ejemplo de cuadro otra ciudad -->
+                        <div class="factura-card otra-ciudad">
+                            <span class="tipo-badge badge-otra-ciudad">CIUDAD</span>
+                            <div class="equipo-numero">123</div>
+                            <div class="ciudad-nombre">León</div>
+                            <div class="saldo-total">$420.00</div>
+                        </div>
                     </div>
                     
-                    <div id="empty-equipos" class="empty-state">
-                        <i class="fas fa-cube"></i>
+                    <div class="empty-state" id="empty-facturas" style="display: none;">
+                        <i class="fas fa-file-invoice-dollar"></i>
                         <div>No hay facturas pendientes</div>
-                        <div style="font-size: 0.8rem; margin-top: 5px; color: #999;">Las ventas pendientes aparecerán aquí</div>
                     </div>
                 </div>
                 
                 <div class="tab-content" id="tab-grupos">
-                    <button class="btn btn-success" id="crear-grupo-btn">
-                        <i class="fas fa-plus"></i> CREAR GRUPO
-                    </button>
+                    <h2 class="section-title">GRUPOS DE FACTURAS</h2>
+                    
                     <div class="grupos-container" id="grupos-container">
-                        <div class="empty-state">
-                            <i class="fas fa-users"></i>
-                            <div>No hay grupos creados</div>
-                            <div style="font-size: 0.8rem; margin-top: 5px; color: #999;">Crea tu primer grupo para organizar los equipos</div>
+                        <!-- Ejemplo de grupo -->
+                        <div class="grupo-card">
+                            <div class="grupo-header">
+                                <div class="grupo-nombre">Juan Pérez</div>
+                            </div>
+                            <div class="grupo-equipos-grid">
+                                <div class="grupo-equipo-item">
+                                    <div class="grupo-equipo-numero">123</div>
+                                    <div class="grupo-equipo-saldo">$150.00</div>
+                                </div>
+                                <div class="grupo-equipo-item">
+                                    <div class="grupo-equipo-numero">456</div>
+                                    <div class="grupo-equipo-ciudad">Chinandega</div>
+                                    <div class="grupo-equipo-saldo">$275.50</div>
+                                </div>
+                                <div class="grupo-equipo-item">
+                                    <div class="grupo-equipo-numero">789</div>
+                                    <div class="grupo-equipo-saldo">$89.00</div>
+                                </div>
+                            </div>
+                            <div class="grupo-total">Total: $514.50</div>
                         </div>
+                        
+                        <!-- Ejemplo de otro grupo -->
+                        <div class="grupo-card">
+                            <div class="grupo-header">
+                                <div class="grupo-nombre">María González</div>
+                            </div>
+                            <div class="grupo-equipos-grid">
+                                <div class="grupo-equipo-item">
+                                    <div class="grupo-equipo-numero">321</div>
+                                    <div class="grupo-equipo-ciudad">León</div>
+                                    <div class="grupo-equipo-saldo">$320.00</div>
+                                </div>
+                                <div class="grupo-equipo-item">
+                                    <div class="grupo-equipo-numero">654</div>
+                                    <div class="grupo-equipo-saldo">$185.00</div>
+                                </div>
+                            </div>
+                            <div class="grupo-total">Total: $505.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="empty-state" id="empty-grupos" style="display: none;">
+                        <i class="fas fa-users"></i>
+                        <div>No hay grupos creados</div>
                     </div>
                 </div>
             </div>
@@ -424,7 +585,29 @@
     </div>
 
     <script>
+        // Control del menú hamburguesa
         document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Control de pestañas
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
             
