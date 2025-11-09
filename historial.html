@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de Ventas</title>
+    <title>Inventario - Taller Wilian</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -45,38 +45,6 @@
             margin-bottom: 4px;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-btn.active {
-            background: white;
-            color: #2c3e50;
-        }
-
         .dashboard-section {
             background: white;
             border-radius: 8px;
@@ -95,72 +63,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #3498db;
-        }
-
-        .historial-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .historial-actions {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: white;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background: #3498db;
-            color: white;
-            border-color: #3498db;
-        }
-
-        .filter-btn:hover {
-            background: #2980b9;
-            color: white;
-            border-color: #2980b9;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-info {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        .btn-info:hover {
-            background-color: #138496;
         }
 
         .form-group {
@@ -182,180 +84,44 @@
             border-color: #3498db;
         }
 
-        .history-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .history-table-container {
+        .inventario-table-container {
             overflow-x: auto;
             border: 1px solid #e0e0e0;
             border-radius: 6px;
         }
 
-        .history-table {
+        .inventario-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
             min-width: 800px;
         }
 
-        .history-table th,
-        .history-table td {
+        .inventario-table th,
+        .inventario-table td {
             padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
-        .history-table th {
+        .inventario-table th {
             background-color: #2c3e50;
             color: white;
             font-weight: 600;
-            position: sticky;
-            left: 0;
         }
 
-        .history-table tbody tr:hover {
+        .inventario-table tbody tr:hover {
             background-color: #f8f9fa;
         }
 
-        .contado-badge {
-            background: #27ae60;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        
-        .pendiente-badge {
-            background: #f39c12;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .abono-badge {
-            background: #17a2b8;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-
-        .retiro-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        
-        .saldo-pendiente-rojo {
+        .stock-bajo {
             color: #e74c3c;
             font-weight: bold;
         }
-        
-        .saldo-pendiente-negro {
-            color: #333;
+
+        .stock-normal {
+            color: #27ae60;
             font-weight: bold;
-        }
-        
-        .cliente-equipo {
-            font-weight: bold;
-        }
-        
-        .cliente-nombre {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .historial-actions-container {
-            min-width: 200px;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            margin: 0 2px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 28px;
-        }
-
-        .icon-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .btn-view {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .btn-view:hover {
-            background-color: #2980b9;
-        }
-
-        .btn-reprint {
-            background-color: #f39c12;
-            color: white;
-        }
-
-        .btn-reprint:hover {
-            background-color: #d35400;
-        }
-
-        .btn-edit {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background-color: #219a52;
-        }
-
-        .btn-delete {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #c0392b;
-        }
-
-        .btn-abono {
-            background-color: #17a2b8;
-            color: white;
-        }
-
-        .btn-abono:hover {
-            background-color: #138496;
-        }
-
-        .btn-cancel {
-            background-color: #9b59b6;
-            color: white;
-        }
-
-        .btn-cancel:hover {
-            background-color: #8e44ad;
         }
 
         .empty-cart {
@@ -367,76 +133,204 @@
             border-radius: 4px;
             border: 2px dashed #ddd;
         }
+
+        /* Menú hamburguesa compacto */
+        .mobile-menu-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 62, 80, 0.95);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .mobile-menu.active {
+            display: flex;
+        }
+        
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            margin: 15px 0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        
+        .mobile-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .inventario-table-container {
+                overflow-x: auto;
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-menu-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Menú hamburguesa compacto -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="index.html">
+            <i class="fas fa-home"></i> Inicio
+        </a>
+        <a href="venta.html">
+            <i class="fas fa-cash-register"></i> Nueva Venta
+        </a>
+        <a href="facturas.html">
+            <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
+        </a>
+        <a href="historial.html">
+            <i class="fas fa-history"></i> Historial de Ventas
+        </a>
+        <a href="inventario.html" class="active">
+            <i class="fas fa-boxes"></i> Inventario
+        </a>
+        <a href="servicios.html">
+            <i class="fas fa-tools"></i> Servicios
+        </a>
+        <a href="entregas.html">
+            <i class="fas fa-truck"></i> Entregas
+        </a>
+        <a href="memos-cuentas.html">
+            <i class="fas fa-sticky-note"></i> Memos y Cuentas
+        </a>
+        <a href="configuracion.html">
+            <i class="fas fa-cog"></i> Configuración
+        </a>
+    </div>
+
     <div class="container">
         <header>
             <h1>Taller Willian</h1>
-            <div class="nav-container">
-                <a href="venta.html" class="nav-btn">
-                    <i class="fas fa-cash-register"></i> Nueva Venta
-                </a>
-                <a href="facturas.html" class="nav-btn">
-                    <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
-                </a>
-                <a href="historial.html" class="nav-btn active">
-                    <i class="fas fa-history"></i> Historial de Ventas
-                </a>
-            </div>
         </header>
 
         <div class="dashboard-section">
-            <h2 class="section-title">HISTORIAL DE VENTAS (Últimas 500)</h2>
-            
-            <div class="historial-actions">
-                <div class="filter-buttons">
-                    <button class="filter-btn" data-filter="todo">TODO</button>
-                    <button class="filter-btn active" data-filter="hoy">HOY</button>
-                </div>
-                <div>
-                    <button class="btn btn-info" id="print-historial-btn">
-                        IMPRIMIR HISTORIAL
-                    </button>
-                </div>
-            </div>
+            <h2 class="section-title">INVENTARIO</h2>
             
             <div class="form-group">
-                <input type="text" id="filter-historial" placeholder="Filtrar por número de equipo...">
+                <input type="text" id="buscar-producto" placeholder="Buscar producto...">
             </div>
             
-            <div class="history-container">
-                <div class="history-table-container">
-                    <table class="history-table">
-                        <thead>
-                            <tr>
-                                <th>Factura</th>
-                                <th>Equipo</th>
-                                <th>Total</th>
-                                <th>Estado</th>
-                                <th>Fecha</th>
-                                <th width="250">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="historial-body">
-                            <tr>
-                                <td colspan="6" class="empty-cart">No hay movimientos registrados</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="inventario-table-container">
+                <table class="inventario-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th width="120">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventario-body">
+                        <tr>
+                            <td colspan="6" class="empty-cart">No hay productos en inventario</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <script>
+        // Control del menú hamburguesa
         document.addEventListener('DOMContentLoaded', function() {
-            const filterButtons = document.querySelectorAll('.filter-btn');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
             
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    filterButtons.forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+            });
+            
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+            
+            // Cerrar menú al hacer clic en un enlace
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
                 });
             });
         });
