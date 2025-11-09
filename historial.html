@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario - Taller Wilian</title>
+    <title>Historial de Ventas - Taller Wilian</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -65,73 +65,196 @@
             border-bottom: 2px solid #3498db;
         }
 
-        .form-group {
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 2px solid #3498db;
             margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            background: white;
-            color: #333;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3498db;
-        }
-
-        .inventario-table-container {
             overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .tab-btn:hover {
+            background: #e9ecef;
+            color: #2980b9;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        /* ===== ESTILOS PARA HISTORIAL POR DÍAS ===== */
+        
+        .dias-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .dia-group {
+            background: #f8f9fa;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
+            padding: 15px;
         }
-
-        .inventario-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.8rem;
-            min-width: 800px;
-        }
-
-        .inventario-table th,
-        .inventario-table td {
-            padding: 12px 10px;
-            text-align: left;
+        
+        .dia-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid #ddd;
         }
-
-        .inventario-table th {
-            background-color: #2c3e50;
-            color: white;
-            font-weight: 600;
+        
+        .dia-titulo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
         }
-
-        .inventario-table tbody tr:hover {
-            background-color: #f8f9fa;
+        
+        .dia-fecha {
+            font-size: 0.8rem;
+            color: #7f8c8d;
         }
-
-        .stock-bajo {
+        
+        .equipos-dia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .equipo-historial-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .equipo-historial-item:hover {
+            background: #e8f4fd;
+            border-color: #3498db;
+        }
+        
+        .equipo-numero-hist {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+        
+        .equipo-ciudad-hist {
+            font-size: 0.8rem;
             color: #e74c3c;
             font-weight: bold;
+            margin-bottom: 5px;
         }
-
-        .stock-normal {
-            color: #27ae60;
+        
+        .equipo-total-hist {
+            font-size: 0.9rem;
             font-weight: bold;
+            color: #27ae60;
         }
-
-        .empty-cart {
+        
+        /* ===== ESTILOS PARA HISTORIAL DE EQUIPOS ===== */
+        
+        .equipos-historial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .equipo-historial-card {
+            background: white;
+            border: 2px solid #27ae60;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .equipo-historial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .equipo-numero-card {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .equipo-ciudad-card {
+            font-size: 0.9rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .equipo-info-card {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .equipo-ultima-fecha {
+            font-size: 0.7rem;
+            color: #7f8c8d;
+        }
+        
+        .empty-state {
             text-align: center;
             color: #7f8c8d;
-            font-size: 0.9rem;
-            padding: 30px;
-            background: white;
-            border-radius: 4px;
-            border: 2px dashed #ddd;
+            padding: 40px 20px;
+        }
+        
+        .empty-state i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            opacity: 0.5;
         }
 
         /* Menú hamburguesa compacto */
@@ -208,8 +331,12 @@
                 justify-content: center;
             }
             
-            .inventario-table-container {
-                overflow-x: auto;
+            .equipos-dia-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .equipos-historial-container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
             
             header h1 {
@@ -218,6 +345,11 @@
             
             .container {
                 padding: 10px;
+            }
+            
+            /* Ocultar botones en móvil */
+            .btn-imprimir {
+                display: none;
             }
         }
         
@@ -228,12 +360,12 @@
                 font-size: 1rem;
             }
             
-            header h1 {
-                font-size: 1.2rem;
+            .equipos-dia-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .container {
-                padding: 10px;
+            .equipos-historial-container {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -257,10 +389,10 @@
         <a href="facturas.html">
             <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
         </a>
-        <a href="historial.html">
+        <a href="historial.html" class="active">
             <i class="fas fa-history"></i> Historial de Ventas
         </a>
-        <a href="inventario.html" class="active">
+        <a href="inventario.html">
             <i class="fas fa-boxes"></i> Inventario
         </a>
         <a href="servicios.html">
@@ -283,30 +415,118 @@
         </header>
 
         <div class="dashboard-section">
-            <h2 class="section-title">INVENTARIO</h2>
-            
-            <div class="form-group">
-                <input type="text" id="buscar-producto" placeholder="Buscar producto...">
-            </div>
-            
-            <div class="inventario-table-container">
-                <table class="inventario-table">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Descripción</th>
-                            <th>Categoría</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th width="120">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="inventario-body">
-                        <tr>
-                            <td colspan="6" class="empty-cart">No hay productos en inventario</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="ventas">HISTORIAL DE VENTAS</button>
+                    <button class="tab-btn" data-tab="equipos">HISTORIAL DE EQUIPOS</button>
+                </div>
+                
+                <div class="tab-content active" id="tab-ventas">
+                    <div class="section-title">
+                        <h2>HISTORIAL DE VENTAS (Últimas 500)</h2>
+                        <!-- Botón oculto en móvil -->
+                        <button class="btn btn-info btn-imprimir" id="print-historial-btn">
+                            <i class="fas fa-print"></i> IMPRIMIR HISTORIAL
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="filter-historial" placeholder="Filtrar por número de equipo...">
+                    </div>
+                    
+                    <div class="dias-container" id="ventas-container">
+                        <!-- Ejemplo de día - Hoy -->
+                        <div class="dia-group">
+                            <div class="dia-header">
+                                <div class="dia-titulo">HOY</div>
+                                <div class="dia-fecha">09/11/2025</div>
+                            </div>
+                            <div class="equipos-dia-grid">
+                                <div class="equipo-historial-item">
+                                    <div class="equipo-numero-hist">123</div>
+                                    <div class="equipo-total-hist">$150.00</div>
+                                </div>
+                                <div class="equipo-historial-item">
+                                    <div class="equipo-numero-hist">456</div>
+                                    <div class="equipo-ciudad-hist">Chinandega</div>
+                                    <div class="equipo-total-hist">$275.50</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ejemplo de día - Ayer -->
+                        <div class="dia-group">
+                            <div class="dia-header">
+                                <div class="dia-titulo">AYER</div>
+                                <div class="dia-fecha">08/11/2025</div>
+                            </div>
+                            <div class="equipos-dia-grid">
+                                <div class="equipo-historial-item">
+                                    <div class="equipo-numero-hist">789</div>
+                                    <div class="equipo-total-hist">$89.00</div>
+                                </div>
+                                <div class="equipo-historial-item">
+                                    <div class="equipo-numero-hist">321</div>
+                                    <div class="equipo-ciudad-hist">León</div>
+                                    <div class="equipo-total-hist">$420.00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ejemplo de día - Hace 2 días -->
+                        <div class="dia-group">
+                            <div class="dia-header">
+                                <div class="dia-titulo">HACE 2 DÍAS</div>
+                                <div class="dia-fecha">07/11/2025</div>
+                            </div>
+                            <div class="equipos-dia-grid">
+                                <div class="equipo-historial-item">
+                                    <div class="equipo-numero-hist">654</div>
+                                    <div class="equipo-total-hist">$235.00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="empty-state" id="empty-ventas" style="display: none;">
+                        <i class="fas fa-history"></i>
+                        <div>No hay ventas en el historial</div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-equipos">
+                    <h2 class="section-title">HISTORIAL DE EQUIPOS</h2>
+                    
+                    <div class="equipos-historial-container" id="equipos-historial-container">
+                        <!-- Ejemplo de equipo completado -->
+                        <div class="equipo-historial-card">
+                            <div class="equipo-numero-card">123</div>
+                            <div class="equipo-info-card">Total de compras: 5</div>
+                            <div class="equipo-info-card">Monto total: $1,250.00</div>
+                            <div class="equipo-ultima-fecha">Última: 09/11/2025</div>
+                        </div>
+                        
+                        <div class="equipo-historial-card">
+                            <div class="equipo-numero-card">456</div>
+                            <div class="equipo-ciudad-card">Chinandega</div>
+                            <div class="equipo-info-card">Total de compras: 3</div>
+                            <div class="equipo-info-card">Monto total: $850.50</div>
+                            <div class="equipo-ultima-fecha">Última: 08/11/2025</div>
+                        </div>
+                        
+                        <div class="equipo-historial-card">
+                            <div class="equipo-numero-card">789</div>
+                            <div class="equipo-info-card">Total de compras: 2</div>
+                            <div class="equipo-info-card">Monto total: $420.00</div>
+                            <div class="equipo-ultima-fecha">Última: 07/11/2025</div>
+                        </div>
+                    </div>
+                    
+                    <div class="empty-state" id="empty-equipos" style="display: none;">
+                        <i class="fas fa-truck"></i>
+                        <div>No hay equipos en el historial</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -331,6 +551,22 @@
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Control de pestañas
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    button.classList.add('active');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
                 });
             });
         });
