@@ -45,38 +45,6 @@
             margin-bottom: 4px;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            padding: 8px 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .nav-btn.active {
-            background: white;
-            color: #2c3e50;
-        }
-
         .dashboard-section {
             background: white;
             border-radius: 8px;
@@ -95,53 +63,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #3498db;
-        }
-
-        .inventario-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .inventario-actions {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-            text-align: center;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-success {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #219a52;
-        }
-
-        .btn-primary {
-            background-color: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2980b9;
         }
 
         .form-group {
@@ -203,49 +124,6 @@
             font-weight: bold;
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            margin: 0 2px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 28px;
-        }
-
-        .icon-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .btn-edit {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background-color: #219a52;
-        }
-
-        .btn-delete {
-            background-color: #e74c3c;
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background-color: #c0392b;
-        }
-
         .empty-cart {
             text-align: center;
             color: #7f8c8d;
@@ -256,24 +134,26 @@
             border: 2px dashed #ddd;
         }
 
-        /* Estilos para el menú móvil */
+        /* Menú hamburguesa compacto */
         .mobile-menu-btn {
-            display: none;
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: #3498db;
             color: white;
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
             cursor: pointer;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
+        
         .mobile-menu {
             display: none;
             position: fixed;
@@ -287,11 +167,11 @@
             justify-content: center;
             align-items: center;
         }
-
+        
         .mobile-menu.active {
             display: flex;
         }
-
+        
         .mobile-menu a {
             color: white;
             text-decoration: none;
@@ -304,11 +184,11 @@
             width: 80%;
             max-width: 300px;
         }
-
+        
         .mobile-menu a:hover {
             background: rgba(255, 255, 255, 0.1);
         }
-
+        
         .mobile-menu-close {
             position: absolute;
             top: 20px;
@@ -319,17 +199,47 @@
             font-size: 2rem;
             cursor: pointer;
         }
-
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
+            
+            .inventario-table-container {
+                overflow-x: auto;
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-menu-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Menú hamburguesa compacto -->
     <button class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
     </button>
@@ -350,11 +260,17 @@
         <a href="historial.html">
             <i class="fas fa-history"></i> Historial de Ventas
         </a>
-        <a href="inventario.html">
+        <a href="inventario.html" class="active">
             <i class="fas fa-boxes"></i> Inventario
         </a>
         <a href="servicios.html">
             <i class="fas fa-tools"></i> Servicios
+        </a>
+        <a href="entregas.html">
+            <i class="fas fa-truck"></i> Entregas
+        </a>
+        <a href="memos-cuentas.html">
+            <i class="fas fa-sticky-note"></i> Memos y Cuentas
         </a>
         <a href="configuracion.html">
             <i class="fas fa-cog"></i> Configuración
@@ -364,40 +280,13 @@
     <div class="container">
         <header>
             <h1>Taller Willian</h1>
-            <div class="nav-container">
-                <a href="venta.html" class="nav-btn">
-                    <i class="fas fa-cash-register"></i> Nueva Venta
-                </a>
-                <a href="facturas.html" class="nav-btn">
-                    <i class="fas fa-file-invoice-dollar"></i> Facturas Pendientes
-                </a>
-                <a href="historial.html" class="nav-btn">
-                    <i class="fas fa-history"></i> Historial de Ventas
-                </a>
-                <a href="inventario.html" class="nav-btn active">
-                    <i class="fas fa-boxes"></i> Inventario
-                </a>
-                <a href="servicios.html" class="nav-btn">
-                    <i class="fas fa-tools"></i> Servicios
-                </a>
-                <a href="configuracion.html" class="nav-btn">
-                    <i class="fas fa-cog"></i> Configuración
-                </a>
-            </div>
         </header>
 
         <div class="dashboard-section">
             <h2 class="section-title">INVENTARIO</h2>
             
-            <div class="inventario-actions">
-                <div>
-                    <button class="btn btn-success" id="agregar-producto-btn">
-                        <i class="fas fa-plus"></i> AGREGAR PRODUCTO
-                    </button>
-                </div>
-                <div class="form-group">
-                    <input type="text" id="buscar-producto" placeholder="Buscar producto...">
-                </div>
+            <div class="form-group">
+                <input type="text" id="buscar-producto" placeholder="Buscar producto...">
             </div>
             
             <div class="inventario-table-container">
@@ -423,7 +312,7 @@
     </div>
 
     <script>
-        // Control del menú móvil
+        // Control del menú hamburguesa
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
