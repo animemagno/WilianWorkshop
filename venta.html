@@ -7,27 +7,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-    body{background:#eef2f5;color:#333;font-size:14px;padding:10px}
-    .container{max-width:100%;margin:0 auto;background:white;border-radius:8px;padding:15px;box-shadow:0 2px 4px rgba(0,0,0,.1)}
-    header{background:linear-gradient(135deg,#3498db,#2c3e50);color:white;padding:12px 0;border-radius:8px;margin-bottom:20px;text-align:center;position:relative}
-    header h1{font-size:1.3rem;margin-bottom:4px}
-    .header-actions{position:absolute;top:10px;right:10px;display:flex;align-items:center;gap:10px}
-    .cart-icon{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease}
-    .cart-icon:hover{background:rgba(255,255,255,.3);transform:scale(1.1)}
-    .cart-icon i{color:white;font-size:1.2rem}
-    .cart-badge{position:absolute;top:-5px;right:-5px;background:#e74c3c;color:white;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:bold}
-    .cart-total-amount{color:white;font-size:.9rem;font-weight:600;margin-left:5px}
+    html,body{height:100%}
+    body{background:#eef2f5;color:#333;font-size:14px;display:flex;flex-direction:col;}
 
-    .mobile-menu-btn{position:fixed;top:15px;left:15px;background:#3498db;color:white;border:none;border-radius:50%;width:40px;height:40px;font-size:1.2rem;cursor:pointer;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center}
+    /* 🔥 CONTENEDOR PRINCIPAL: altura completa */
+    .main-wrapper{display:flex;flex-direction:column;min-height:100vh}
+    .container{max-width:1200px;width:100%;margin:0 auto;background:white;border-radius:8px;padding:15px;box-shadow:0 2px 4px rgba(0,0,0,.1);flex:1 1 auto;display:flex;flex-direction:column}
+
+    header{background:linear-gradient(135deg,#3498db,#2c3e50);color:white;padding:12px 20px;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    header h1{font-size:1.4rem}
+    .header-actions{display:flex;align-items:center;gap:10px}
+
+    /* Menú hamburguesa integrado al encabezado */
+    .menu-toggle{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s}
+    .menu-toggle:hover{background:rgba(255,255,255,.3)}
+    .menu-toggle i{color:white;font-size:1.1rem}
+    .cart-icon{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease}
+    .cart-icon:hover{background:rgba(255,255,255,.3);transform:scale(1.1)}
+    .cart-icon i{color:white;font-size:1.1rem}
+    .cart-badge{position:absolute;top:-5px;right:-5px;background:#e74c3c;color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:bold}
+
     .mobile-menu{display:none;position:absolute;top:55px;left:10px;background:white;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.15);z-index:999;flex-direction:column;padding:8px 0;min-width:180px}
     .mobile-menu.active{display:flex}
     .mobile-menu a{color:#333;text-decoration:none;padding:10px 15px;font-size:1rem;transition:background .2s}
     .mobile-menu a:hover{background:#f2f2f2}
 
-    .dashboard-section{background:white;border-radius:8px;padding:20px;box-shadow:0 2px 4px rgba(0,0,0,.1);border:1px solid #e0e0e0;margin-bottom:20px}
+    .dashboard-section{background:white;border-radius:8px;padding:20px;box-shadow:0 2px 4px rgba(0,0,0,.1);border:1px solid #e0e0e0;margin-bottom:20px;flex:1 1 auto;display:flex;flex-direction:column}
+
     .section-title{display:flex;justify-content:space-between;align-items:center;font-size:1.2rem;color:#2c3e50;margin-bottom:15px;padding-bottom:8px;border-bottom:2px solid #3498db}
 
-    .venta-wrapper{display:flex;gap:15px;align-items:flex-start}
+    .venta-wrapper{display:flex;gap:15px;align-items:flex-start;flex:1 1 auto}
     .venta-form-container{flex:1 1 50%;display:flex;flex-direction:column}
     .venta-carrito-container{flex:1 1 50%;display:flex;flex-direction:column}
     .venta-wrapper.invertido{flex-direction:row-reverse}
@@ -55,6 +64,7 @@
     .subtotal{font-weight:600;color:#2c3e50}
     .delete-item-btn{background:#e74c3c;color:white;border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:all .2s ease}
     .delete-item-btn:hover{background:#c0392b;transform:scale(1.1)}
+    .delete-item-btn i{pointer-events:none}
     .cart-total{background:#ecf0f1;padding:12px;border-radius:0 0 4px 4px;text-align:right;font-weight:bold;font-size:1.1rem;border-top:2px solid #3498db;margin-top:auto}
     .empty-cart{text-align:center;color:#7f8c8d;font-size:.9rem;padding:30px;background:white;border-radius:4px;border:2px dashed #ddd}
     .btn{padding:10px 15px;border:none;border-radius:4px;cursor:pointer;font-weight:600;transition:all .3s ease;font-size:.85rem;text-align:center;width:100%;margin-bottom:5px}
@@ -80,9 +90,17 @@
     }
 </style>
 </head>
-<body>
+<body class="main-wrapper">
 
-<button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+<header>
+    <button class="menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    <h1>Taller Willian</h1>
+    <div class="header-actions">
+        <button class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
+        <span class="cart-total-amount" id="cartTotal">$0.00</span>
+    </div>
+</header>
+
 <div class="mobile-menu" id="mobileMenu">
     <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
     <a href="venta.html" class="active"><i class="fas fa-cash-register"></i> Nueva Venta</a>
@@ -97,14 +115,6 @@
 </div>
 
 <div class="container">
-    <header>
-        <h1>Taller Willian</h1>
-        <div class="header-actions">
-            <button class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></button>
-            <span class="cart-total-amount" id="cartTotal">$0.00</span>
-        </div>
-    </header>
-
     <div class="dashboard-section">
         <div class="section-title">NUEVA VENTA <button class="swap-btn" id="swapBtn" title="Invertir lados"><i class="fas fa-exchange-alt"></i></button></div>
         <div class="venta-wrapper" id="ventaWrapper">
@@ -183,7 +193,7 @@ document.addEventListener('DOMContentLoaded',function(){
                     <div>${item.cantidad}</div>
                     <div>$${item.precio.toFixed(2)}</div>
                     <div>$${item.subtotal.toFixed(2)}</div>
-                    <div class="cart-actions"><button class="delete-item-btn" data-index="${index}" title="Eliminar"><i class="fas fa-times"></i></button></div>
+                    <div class="cart-actions"><button class="delete-item-btn" data-index="${index}" title="Eliminar"><i class="fas fa-trash"></i></button></div>
                 </div>`;
             });
             cartItemsDiv.innerHTML=html;
