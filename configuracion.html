@@ -254,6 +254,14 @@
     </style>
 </head>
 <body>
+<button onclick="cerrarSesion()">Cerrar Sesión</button>
+
+<script>
+  function cerrarSesion() {
+    localStorage.removeItem('usuarioLogueado');
+    window.location.href = 'login.html';
+  }
+</script>
     <!-- Menú hamburguesa compacto -->
     <button class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
