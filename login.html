@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Iniciar Sesión - Taller Wilian</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #3498db, #2c3e50);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #2980b9;
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <i class="fas fa-user-circle" style="font-size: 3rem; color: #3498db; margin-bottom: 10px;"></i>
+    <h2>Iniciar Sesión</h2>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="celular">Número de Celular</label>
+        <input type="tel" id="celular" placeholder="Ej: 88888888" required pattern="[0-9]{8}" maxlength="8" />
+      </div>
+
+      <div class="form-group" id="codigoGroup" style="display:none;">
+        <label for="codigo">Código de verificación</label>
+        <input type="text" id="codigo" placeholder="1234" maxlength="4" pattern="[0-9]{4}" />
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">Enviar código</button>
+    </form>
+
+    <div class="error" id="errorMsg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const celularInput = document.getElementById('celular');
+    const codigoInput = document.getElementById('codigo');
+    const codigoGroup = document.getElementById('codigoGroup');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMsg = document.getElementById('errorMsg');
+
+    let paso = 1;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      errorMsg.textContent = '';
+
+      if (paso === 1) {
+        // Simular envío de código
+        const celular = celularInput.value.trim();
+        if (!/^[0-9]{8}$/.test(celular)) {
+          errorMsg.textContent = 'Ingresa un número válido de 8 dígitos.';
+          return;
+        }
+
+        // Mostrar campo de código
+        codigoGroup.style.display = 'block';
+        submitBtn.textContent = 'Ingresar';
+        celularInput.disabled = true;
+        paso = 2;
+      } else if (paso === 2) {
+        // Validar código (simulado)
+        const codigo = codigoInput.value.trim();
+        if (codigo === '1234') {
+          // Guardar sesión simulada
+          localStorage.setItem('usuarioLogueado', celularInput.value);
+          window.location.href = 'index.html';
+        } else {
+          errorMsg.textContent = 'Código incorrecto. Prueba 1234';
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
