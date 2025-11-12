@@ -12,9 +12,9 @@
 
     /* 🔥 CONTENEDOR: igual que las demás páginas (con margen) */
     .main-wrapper{display:flex;flex-direction:column;min-height:100vh;padding:10px}
-    .container{width:100%;max-width:1200px;margin:0 auto;background:white;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);flex:1 1 auto;display:flex;flex-direction:column;padding:0}
+    .container{width:100%;max-width:100%;margin:0 auto;background:white;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);flex:1 1 auto;display:flex;flex-direction:column;padding:0}
 
-    /* 🔥 ENCABEZADO: mismo estilo y MARGEN que el resto del sitio */
+    /* 🔥 ENCABEZADO: ancho completo */
     header{background:linear-gradient(135deg,#3498db,#2c3e50);color:white;padding:12px 20px;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
     header h1{font-size:1.3rem;margin-bottom:4px}
     .header-actions{display:flex;align-items:center;gap:10px;position:relative}
@@ -37,8 +37,9 @@
 
     .section-title{display:flex;justify-content:space-between;align-items:center;font-size:1.2rem;color:#2c3e50;margin-bottom:15px;padding-bottom:8px;border-bottom:2px solid #3498db}
 
-    /* 🔥 SIMETRÍA: mismo ancho que el encabezado */
+    /* 🔥 SIMETRÍA: ancho completo en escritorio */
     .venta-wrapper{display:flex;gap:15px;align-items:flex-start;flex:1 1 auto;padding:0 20px}
+    @media (max-width: 768px){.venta-wrapper{padding:0 10px}}
     .venta-form-container{flex:1 1 50%;display:flex;flex-direction:column}
     .venta-carrito-container{flex:1 1 50%;display:flex;flex-direction:column}
     .venta-wrapper.invertido{flex-direction:row-reverse}
