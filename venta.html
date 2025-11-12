@@ -6,26 +6,27 @@
   <title>Nueva Venta - Taller Wilian</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
     html,body{height:100%}
-    body{background:#eef2f5;color:#333;font-size:14px;display:flex;flex-direction:col;}
+    body{background:#eef2f5;color:#333;font-size:14px;display:flex;flex-direction:column}
 
-    /* 🔥 CONTENEDOR PRINCIPAL: altura completa */
-    .main-wrapper{display:flex;flex-direction:column;min-height:100vh}
-    .container{max-width:1200px;width:100%;margin:0 auto;background:white;border-radius:8px;padding:15px;box-shadow:0 2px 4px rgba(0,0,0,.1);flex:1 1 auto;display:flex;flex-direction:column}
+    /* 🔥 CONTENEDOR: igual que las demás páginas (con margen) */
+    .main-wrapper{display:flex;flex-direction:column;min-height:100vh;padding:10px}
+    .container{width:100%;max-width:1200px;margin:0 auto;background:white;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);flex:1 1 auto;display:flex;flex-direction:column;padding:0}
 
+    /* 🔥 ENCABEZADO: mismo estilo y MARGEN que el resto del sitio */
     header{background:linear-gradient(135deg,#3498db,#2c3e50);color:white;padding:12px 20px;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-    header h1{font-size:1.4rem}
-    .header-actions{display:flex;align-items:center;gap:10px}
+    header h1{font-size:1.3rem;margin-bottom:4px}
+    .header-actions{display:flex;align-items:center;gap:10px;position:relative}
 
-    /* Menú hamburguesa integrado al encabezado */
+    /* Menú hamburguesa integrado */
     .menu-toggle{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s}
     .menu-toggle:hover{background:rgba(255,255,255,.3)}
     .menu-toggle i{color:white;font-size:1.1rem}
-    .cart-icon{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease}
+    .cart-icon{background:rgba(255,255,255,.2);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s ease;position:relative}
     .cart-icon:hover{background:rgba(255,255,255,.3);transform:scale(1.1)}
     .cart-icon i{color:white;font-size:1.1rem}
-    .cart-badge{position:absolute;top:-5px;right:-5px;background:#e74c3c;color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:bold}
+    .cart-badge{position:absolute;top:-5px;right:-5px;background:#e74c3c;color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:bold;pointer-events:none}
 
     .mobile-menu{display:none;position:absolute;top:55px;left:10px;background:white;border:1px solid #ddd;border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.15);z-index:999;flex-direction:column;padding:8px 0;min-width:180px}
     .mobile-menu.active{display:flex}
