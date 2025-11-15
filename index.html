@@ -355,5 +355,11 @@
         <p>Sistema desarrollado para Taller Wilian</p>
         <p>© 2024 - Todos los derechos reservados</p>
     </div>
+
+    <script>
+        if (!localStorage.getItem('usuarioLogueado')) {
+            window.location.href = 'login.html';
+        }
+    </script>
 </body>
 </html>
