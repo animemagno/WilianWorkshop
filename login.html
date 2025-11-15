@@ -32,7 +32,6 @@
 <body>
 
 <div class="login-box">
-  <!-- Ícono de taller mecánico -->
   <i class="fas fa-tools logo-icon"></i>
   <h2>Taller Wilian</h2>
   <p>Sistema de Ventas</p>
@@ -40,12 +39,12 @@
   <form id="loginForm">
     <div class="form-group">
       <label>Número de Celular</label>
-      <input type="tel" id="celular" placeholder="Ej: 88888888" required pattern="[0-9]{8}" maxlength="8">
+      <input type="tel" id="celular" placeholder="1234-5678" maxlength="9" required>
     </div>
 
     <div class="form-group hidden" id="codigoGroup">
       <label>Código de verificación</label>
-      <input type="text" id="codigo" placeholder="1234" maxlength="4" pattern="[0-9]{4}">
+      <input type="text" id="codigo" placeholder="Código" maxlength="20">
     </div>
 
     <div class="checkbox-group">
@@ -61,6 +60,10 @@
 </div>
 
 <script>
+// ---------- CONFIGURACIÓN ----------
+const CODIGO_VERIFICACION = '1234'; // <-- Puedes cambiarlo aquí
+// -----------------------------------
+
 const form=document.getElementById('loginForm');
 const celularInput=document.getElementById('celular');
 const codigoInput=document.getElementById('codigo');
@@ -72,6 +75,15 @@ const errorMsg=document.getElementById('errorMsg');
 
 let paso=1;
 
+// Auto-formato: 1234-5678
+celularInput.addEventListener('input',(e)=>{
+  let valor=e.target.value.replace(/\D/g,'');
+  if(valor.length>=5){
+    valor=valor.slice(0,4)+'-'+valor.slice(4,8);
+  }
+  e.target.value=valor;
+});
+
 // Si existe sesión guardada, saltar login
 if(localStorage.getItem('usuarioLogueado') && localStorage.getItem('recordar')==='true'){
   window.location.href='index.html';
@@ -82,8 +94,8 @@ form.addEventListener('submit',function(e){
   errorMsg.textContent='';
 
   if(paso===1){
-    const celular=celularInput.value.trim();
-    if(!/^[0-9]{8}$/.test(celular)){
+    const celular=celularInput.value.replace(/\D/g,'');
+    if(celular.length!==8){
       errorMsg.textContent='Ingresa un número válido de 8 dígitos.';
       return;
     }
@@ -93,28 +105,28 @@ form.addEventListener('submit',function(e){
     paso=2;
   }else if(paso===2){
     const codigo=codigoInput.value.trim();
-    if(codigo==='1234'){
+    if(codigo===CODIGO_VERIFICACION){
       // Guardar sesión y preferencia de recordar
-      localStorage.setItem('usuarioLogueado',celularInput.value);
+      localStorage.setItem('usuarioLogueado',celularInput.value.replace(/\D/g,''));
       localStorage.setItem('tipoUsuario','admin'); // admin, empleado, lectura
       if(recordarCheckbox.checked){
         localStorage.setItem('recordar','true');
       }
       window.location.href='index.html';
     }else{
-      errorMsg.textContent='Código incorrecto. Prueba 1234';
+      errorMsg.textContent='Código incorrecto.';
     }
   }
 });
 
 // Botón "Olvidé mi contraseña"
 recuperarBtn.addEventListener('click',()=>{
-  const celular=celularInput.value.trim();
-  if(!/^[0-9]{8}$/.test(celular)){
+  const celular=celularInput.value.replace(/\D/g,'');
+  if(celular.length!==8){
     errorMsg.textContent='Primero ingresa tu número de celular.';
     return;
   }
-  alert(`Tu código de recuperación es: 1234\nIngrésalo en el campo de código.`);
+  alert(`Tu código de recuperación es: ${CODIGO_VERIFICACION}\nIngrésalo en el campo de código.`);
   codigoGroup.classList.remove('hidden');
   submitBtn.textContent='Ingresar';
   celularInput.disabled=true;
