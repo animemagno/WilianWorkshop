@@ -84,7 +84,11 @@
 </style>
 </head>
 <body class="main-wrapper">
-
+<script>
+  if (!localStorage.getItem('usuarioLogueado')) {
+    window.location.href = 'login.html';
+  }
+</script>
 <header>
     <button class="menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
     <h1>Taller Willian</h1>
